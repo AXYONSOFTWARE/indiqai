@@ -1,7 +1,5 @@
-import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -503,15 +501,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                   Text(
                                                                     valueOrDefault<
                                                                         String>(
-                                                                      homePageProductsRowList
-                                                                          .where((e) =>
-                                                                              e.idNumber! <=
-                                                                              4)
-                                                                          .toList()
-                                                                          .first
+                                                                      listViewProductsRow
                                                                           .idNumber
                                                                           ?.toString(),
-                                                                      'null',
+                                                                      'sem id',
                                                                     ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
@@ -541,14 +534,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                                     child: Text(
                                                                       valueOrDefault<
                                                                           String>(
-                                                                        homePageProductsRowList
-                                                                            .where((e) =>
-                                                                                e.idNumber! <=
-                                                                                4)
-                                                                            .toList()
-                                                                            .first
+                                                                        listViewProductsRow
                                                                             .name,
-                                                                        'null',
+                                                                        'sem nome',
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -607,25 +595,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                       ),
                     ),
                   ],
-                ),
-                FlutterFlowIconButton(
-                  borderColor: FlutterFlowTheme.of(context).primary,
-                  borderRadius: 20.0,
-                  borderWidth: 1.0,
-                  buttonSize: 40.0,
-                  fillColor: FlutterFlowTheme.of(context).accent1,
-                  icon: Icon(
-                    Icons.logout_rounded,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 24.0,
-                  ),
-                  onPressed: () async {
-                    GoRouter.of(context).prepareAuthEvent();
-                    await authManager.signOut();
-                    GoRouter.of(context).clearRedirectLocation();
-
-                    context.goNamedAuth('WelcomePage', context.mounted);
-                  },
                 ),
               ],
             ),
