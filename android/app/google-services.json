@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "845438681594",
+    "project_id": "indiq-ai-g3a3xk",
+    "storage_bucket": "indiq-ai-g3a3xk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845438681594:android:c08753294fa04c2d392443",
+        "android_client_info": {
+          "package_name": "com.mycompany.indiqai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADBFI7EsJXE9ukQoMwD3FxP-UcF28vUxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
