@@ -35,7 +35,11 @@ class _HomePageWidgetState extends State<HomePageWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().sessionId = functions.gerarCodigoUnico(6, 4, '-');
+      FFAppState().rotationNumber = functions.randomDouble(0.0, 1.0, 5)!;
       FFAppState().update(() {});
+      FFAppState().spinningId =
+          functions.returnIdSpinning(FFAppState().rotationNumber);
+      setState(() {});
     });
 
     animationsMap.addAll({
@@ -214,137 +218,174 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                               Align(
                                                 alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    FFAppState()
-                                                            .rotationNumber =
-                                                        functions.randomDouble(
-                                                            0.0, 1.0, 5)!;
-                                                    FFAppState().update(() {});
-                                                    if (animationsMap[
-                                                            'circleImageOnActionTriggerAnimation'] !=
-                                                        null) {
-                                                      await animationsMap[
-                                                              'circleImageOnActionTriggerAnimation']!
-                                                          .controller
-                                                          .forward(from: 0.0);
-                                                    }
-                                                    if (functions
-                                                            .returnIdSpinning(
-                                                                FFAppState()
-                                                                    .rotationNumber)
-                                                            .toString() ==
-                                                        '15') {
-                                                      context.pushNamed(
-                                                        'semsorte',
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          kTransitionInfoKey:
-                                                              const TransitionInfo(
-                                                            hasTransition: true,
-                                                            transitionType:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    0),
-                                                          ),
-                                                        },
-                                                      );
-
-                                                      return;
-                                                    } else {
-                                                      FFAppState().spinningId =
-                                                          functions
-                                                              .returnIdSpinning(
-                                                                  FFAppState()
-                                                                      .rotationNumber);
-                                                      FFAppState()
-                                                          .update(() {});
-                                                      await RewardsTable()
-                                                          .insert({
-                                                        'name': homePageProductsRowList[
-                                                                FFAppState()
-                                                                    .spinningId]
-                                                            .name,
-                                                        'session_id':
-                                                            FFAppState()
-                                                                .sessionId,
-                                                        'imageURL':
-                                                            homePageProductsRowList[
-                                                                    FFAppState()
-                                                                        .spinningId]
-                                                                .imageURL,
-                                                        'cupon_code': functions
-                                                            .gerarCodigoUnico(
-                                                                4, 2, '-'),
-                                                        'is_active': false,
-                                                        'rotation': FFAppState()
-                                                            .rotationNumber,
-                                                      });
-
-                                                      context.pushNamed(
-                                                        'premios',
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          kTransitionInfoKey:
-                                                              const TransitionInfo(
-                                                            hasTransition: true,
-                                                            transitionType:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    0),
-                                                          ),
-                                                        },
-                                                      );
-
-                                                      return;
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        2.0,
-                                                    height: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        2.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.asset(
-                                                      'assets/images/Frame_1_(2).png',
-                                                      fit: BoxFit.cover,
-                                                      alignment:
-                                                          const Alignment(0.0, 0.0),
+                                                child: FutureBuilder<
+                                                    List<ProductsRow>>(
+                                                  future: ProductsTable()
+                                                      .querySingleRow(
+                                                    queryFn: (q) => q.eq(
+                                                      'id_number',
+                                                      FFAppState().spinningId,
                                                     ),
                                                   ),
-                                                ).animateOnActionTrigger(
-                                                  animationsMap[
-                                                      'circleImageOnActionTriggerAnimation']!,
-                                                  effects: [
-                                                    RotateEffect(
-                                                      curve: Curves.easeOut,
-                                                      delay: 0.0.ms,
-                                                      duration: 6000.0.ms,
-                                                      begin: 0.0,
-                                                      end: FFAppState()
-                                                          .rotationNumber,
-                                                    ),
-                                                  ],
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child: SpinKitRipple(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            size: 50.0,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<ProductsRow>
+                                                        roletaProductsRowList =
+                                                        snapshot.data!;
+
+                                                    final roletaProductsRow =
+                                                        roletaProductsRowList
+                                                                .isNotEmpty
+                                                            ? roletaProductsRowList
+                                                                .first
+                                                            : null;
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        if (animationsMap[
+                                                                'circleImageOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          await animationsMap[
+                                                                  'circleImageOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .forward(
+                                                                  from: 0.0);
+                                                        }
+                                                        if (functions
+                                                                .returnIdSpinning(
+                                                                    FFAppState()
+                                                                        .rotationNumber)
+                                                                .toString() ==
+                                                            '15') {
+                                                          context.pushNamed(
+                                                            'semsorte',
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  const TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .fade,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                              ),
+                                                            },
+                                                          );
+
+                                                          return;
+                                                        } else {
+                                                          await RewardsTable()
+                                                              .insert({
+                                                            'name':
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              roletaProductsRow
+                                                                  ?.name,
+                                                              'sem nome',
+                                                            ),
+                                                            'session_id':
+                                                                FFAppState()
+                                                                    .sessionId,
+                                                            'imageURL':
+                                                                valueOrDefault<
+                                                                    String>(
+                                                              roletaProductsRow
+                                                                  ?.imageURL,
+                                                              'null',
+                                                            ),
+                                                            'cupon_code': functions
+                                                                .gerarCodigoUnico(
+                                                                    4, 2, '-'),
+                                                            'is_active': false,
+                                                            'rotation': FFAppState()
+                                                                .rotationNumber,
+                                                          });
+
+                                                          context.pushNamed(
+                                                            'premios',
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  const TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .fade,
+                                                                duration: Duration(
+                                                                    milliseconds:
+                                                                        0),
+                                                              ),
+                                                            },
+                                                          );
+
+                                                          return;
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                2.0,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                2.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            const BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: Image.asset(
+                                                          'assets/images/Frame_1_(2).png',
+                                                          fit: BoxFit.cover,
+                                                          alignment: const Alignment(
+                                                              0.0, 0.0),
+                                                        ),
+                                                      ),
+                                                    ).animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'circleImageOnActionTriggerAnimation']!,
+                                                      effects: [
+                                                        RotateEffect(
+                                                          curve: Curves.easeOut,
+                                                          delay: 0.0.ms,
+                                                          duration: 6000.0.ms,
+                                                          begin: 0.0,
+                                                          end: FFAppState()
+                                                              .rotationNumber,
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ],
