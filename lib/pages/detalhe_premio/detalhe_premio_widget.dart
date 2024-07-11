@@ -386,6 +386,30 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                                                       ),
                                             ),
                                           ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 8.0, 0.0, 12.0),
+                                            child: Text(
+                                              'Cupom: ${scrollingColumnRewardsRow.cuponCode}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMediumFamily),
+                                                      ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                       theme: const ExpandableThemeData(
