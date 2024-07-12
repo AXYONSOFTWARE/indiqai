@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'roleta_widget.dart' show RoletaWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class RoletaModel extends FlutterFlowModel<RoletaWidget> {
   ///  Local state fields for this page.
 
   double rotationNumber = 1.0;

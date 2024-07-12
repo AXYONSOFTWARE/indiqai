@@ -171,7 +171,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                     ),
                                   )
                                 ],
-                                borderRadius: BorderRadius.circular(12.0),
+                                borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Align(
                                 alignment: const AlignmentDirectional(0.0, 0.0),

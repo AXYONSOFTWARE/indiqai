@@ -52,4 +52,7 @@ class RewardsRow extends SupabaseDataRow {
 
   String? get sessionId => getField<String>('session_id');
   set sessionId(String? value) => setField<String>('session_id', value);
+
+  String? get blurHash => getField<String>('blur_hash');
+  set blurHash(String? value) => setField<String>('blur_hash', value);
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
@@ -76,19 +75,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const SemsorteWidget() : const WelcomePageWidget(),
+          appStateNotifier.loggedIn ? const RoletaWidget() : const WelcomePageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? const SemsorteWidget()
-              : const WelcomePageWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? const RoletaWidget() : const WelcomePageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
+          name: 'roleta',
+          path: '/roleta',
+          builder: (context, params) => const RoletaWidget(),
         ),
         FFRoute(
           name: 'WelcomePage',
@@ -320,13 +318,13 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: SpinKitRipple(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 50.0,
+              ? Container(
+                  color: FlutterFlowTheme.of(context).secondary,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/LOGO_INDIQ.AI_(1)_1.png',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 )

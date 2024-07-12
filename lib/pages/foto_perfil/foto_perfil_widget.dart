@@ -212,7 +212,7 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Falta pouco!',
+                                        'Queremos te conhecer melhor!',
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
@@ -220,7 +220,7 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                                               fontFamily:
                                                   FlutterFlowTheme.of(context)
                                                       .displaySmallFamily,
-                                              fontSize: 28.0,
+                                              fontSize: 24.0,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
@@ -234,7 +234,7 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 24.0),
                                         child: Text(
-                                          'Envie uma foto para botarmos no seu perfil e escolha o nome que vai ficar exibido.',
+                                          'Envie uma foto para o seu perfil e digite seu nome.',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .labelLarge
@@ -546,23 +546,50 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                                                     currentUserUid,
                                                   ),
                                             );
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: const Text('Concluido'),
-                                                  content: const Text(
-                                                      'Sua foto foi atualizada!'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child: const Text('Ok'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                            ScaffoldMessenger.of(context)
+                                                .clearSnackBars();
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Perfil Atualizado!',
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleLarge
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLargeFamily,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            letterSpacing: 0.0,
+                                                            shadows: [
+                                                              Shadow(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                                offset: const Offset(
+                                                                    2.0, 2.0),
+                                                                blurRadius: 2.0,
+                                                              )
+                                                            ],
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleLargeFamily),
+                                                          ),
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .success,
+                                              ),
                                             );
                                           },
                                           text: 'Finalizar',

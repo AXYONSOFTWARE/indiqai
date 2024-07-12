@@ -2,18 +2,20 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'returndada_model.dart';
-export 'returndada_model.dart';
+import 'botao_retorno_universal_model.dart';
+export 'botao_retorno_universal_model.dart';
 
-class ReturndadaWidget extends StatefulWidget {
-  const ReturndadaWidget({super.key});
+class BotaoRetornoUniversalWidget extends StatefulWidget {
+  const BotaoRetornoUniversalWidget({super.key});
 
   @override
-  State<ReturndadaWidget> createState() => _ReturndadaWidgetState();
+  State<BotaoRetornoUniversalWidget> createState() =>
+      _BotaoRetornoUniversalWidgetState();
 }
 
-class _ReturndadaWidgetState extends State<ReturndadaWidget> {
-  late ReturndadaModel _model;
+class _BotaoRetornoUniversalWidgetState
+    extends State<BotaoRetornoUniversalWidget> {
+  late BotaoRetornoUniversalModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -24,7 +26,7 @@ class _ReturndadaWidgetState extends State<ReturndadaWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ReturndadaModel());
+    _model = createModel(context, () => BotaoRetornoUniversalModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

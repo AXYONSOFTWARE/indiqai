@@ -40,4 +40,7 @@ class ProductsRow extends SupabaseDataRow {
 
   int? get idNumber => getField<int>('id_number');
   set idNumber(int? value) => setField<int>('id_number', value);
+
+  String? get blurHash => getField<String>('blur_hash');
+  set blurHash(String? value) => setField<String>('blur_hash', value);
 }

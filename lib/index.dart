@@ -1,5 +1,5 @@
 // Export pages
-export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
+export '/pages/roleta/roleta_widget.dart' show RoletaWidget;
 export '/pages/welcome_page/welcome_page_widget.dart' show WelcomePageWidget;
 export '/pages/premios/premios_widget.dart' show PremiosWidget;
 export '/pages/cadastro/cadastro_widget.dart' show CadastroWidget;

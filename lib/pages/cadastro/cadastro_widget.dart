@@ -173,7 +173,7 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                 ),
                               )
                             ],
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),
@@ -720,6 +720,7 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmallFamily,
                                               color: Colors.white,
+                                              fontSize: 20.0,
                                               letterSpacing: 0.0,
                                               useGoogleFonts: GoogleFonts
                                                       .asMap()
