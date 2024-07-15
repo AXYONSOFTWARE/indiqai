@@ -485,21 +485,7 @@ class _RoletaWidgetState extends State<RoletaWidget>
                                                             .toString() ==
                                                         '15') {
                                                       context.pushNamed(
-                                                        'semsorte',
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          kTransitionInfoKey:
-                                                              const TransitionInfo(
-                                                            hasTransition: true,
-                                                            transitionType:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    3000),
-                                                          ),
-                                                        },
-                                                      );
+                                                          'semsorte');
 
                                                       return;
                                                     } else {
@@ -523,31 +509,35 @@ class _RoletaWidgetState extends State<RoletaWidget>
                                                         ),
                                                         'cupon_code': functions
                                                             .gerarCodigoUnico(
-                                                                4, 2, '-'),
+                                                                4, 3, '-'),
                                                         'is_active': false,
                                                         'rotation': FFAppState()
                                                             .rotationNumber,
                                                         'blur_hash':
                                                             roletaProductsRow
                                                                 ?.blurHash,
+                                                        'description':
+                                                            roletaProductsRow
+                                                                ?.description,
+                                                        'created_at': supaSerialize<
+                                                                DateTime>(
+                                                            getCurrentTimestamp),
+                                                        'expire_date': supaSerialize<
+                                                                DateTime>(
+                                                            functions
+                                                                .returnExpireDate(
+                                                                    getCurrentTimestamp,
+                                                                    8)),
+                                                        'price':
+                                                            roletaProductsRow
+                                                                ?.price,
+                                                        'sale_price':
+                                                            roletaProductsRow
+                                                                ?.salePrice,
                                                       });
 
-                                                      context.pushNamed(
-                                                        'premios',
-                                                        extra: <String,
-                                                            dynamic>{
-                                                          kTransitionInfoKey:
-                                                              const TransitionInfo(
-                                                            hasTransition: true,
-                                                            transitionType:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    3000),
-                                                          ),
-                                                        },
-                                                      );
+                                                      context
+                                                          .pushNamed('premios');
 
                                                       return;
                                                     }
@@ -591,8 +581,8 @@ class _RoletaWidgetState extends State<RoletaWidget>
                                             ),
                                           ),
                                           Align(
-                                            alignment: const AlignmentDirectional(
-                                                -0.01, -0.74),
+                                            alignment:
+                                                const AlignmentDirectional(0.0, -0.6),
                                             child: Container(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *

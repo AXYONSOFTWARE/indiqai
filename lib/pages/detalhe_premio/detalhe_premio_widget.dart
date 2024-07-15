@@ -2,6 +2,7 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -122,11 +123,28 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                           Align(
                             alignment: const AlignmentDirectional(0.0, -1.0),
                             child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 12.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: Image.asset(
+                                  'assets/images/LOGO_INDIQ.AI_(1)_1.png',
+                                  width: 150.0,
+                                  height: 50.0,
+                                  fit: BoxFit.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(0.0, -1.0),
+                            child: Padding(
                               padding: const EdgeInsets.all(20.0),
-                              child: Text(
+                              child: AutoSizeText(
                                 'Resgate seu prêmio',
                                 textAlign: TextAlign.start,
                                 maxLines: 1,
+                                minFontSize: 28.0,
                                 style: FlutterFlowTheme.of(context)
                                     .headlineMedium
                                     .override(
@@ -149,9 +167,9 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
+                                  12.0, 0.0, 12.0, 16.0),
                               child: Container(
-                                width: MediaQuery.sizeOf(context).width * 0.9,
+                                width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 230.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -185,7 +203,8 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                                       image: NetworkImage(
                                         scrollingColumnRewardsRow.imageURL!,
                                       ),
-                                      width: double.infinity,
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
                                       height: 230.0,
                                       fit: BoxFit.cover,
                                     ),
@@ -195,15 +214,16 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             child: Padding(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
                                   scrollingColumnRewardsRow.name,
                                   'sem nome',
                                 ),
-                                textAlign: TextAlign.center,
+                                textAlign: TextAlign.start,
                                 style: FlutterFlowTheme.of(context)
                                     .headlineLarge
                                     .override(
@@ -225,12 +245,14 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                             height: 60.0,
                             decoration: const BoxDecoration(),
                             child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Text(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 12.0, 0.0),
+                              child: AutoSizeText(
                                 valueOrDefault<String>(
                                   scrollingColumnRewardsRow.description,
                                   'sem descrição',
                                 ),
+                                minFontSize: 15.0,
                                 style: FlutterFlowTheme.of(context)
                                     .titleMedium
                                     .override(
@@ -246,7 +268,8 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 0.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -295,11 +318,6 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                               ],
                             ),
                           ),
-                          Divider(
-                            height: 12.0,
-                            thickness: 1.0,
-                            color: FlutterFlowTheme.of(context).alternate,
-                          ),
                           Align(
                             alignment: const AlignmentDirectional(0.0, 1.0),
                             child: Padding(
@@ -340,22 +358,6 @@ class _DetalhePremioWidgetState extends State<DetalhePremioWidget> {
                       ),
                     );
                   },
-                ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(0.0, -1.0),
-                child: Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 100.0, 0.0, 12.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      'assets/images/LOGO_INDIQ.AI_(1)_1.png',
-                      width: 150.0,
-                      height: 50.0,
-                      fit: BoxFit.none,
-                    ),
-                  ),
                 ),
               ),
             ],

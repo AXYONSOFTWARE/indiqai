@@ -9,7 +9,6 @@ import '/backend/schema/structs/index.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -318,16 +317,18 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: FlutterFlowTheme.of(context).secondary,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/LOGO_INDIQ.AI_(1)_1.png',
-                      width: MediaQuery.sizeOf(context).width * 0.7,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                )
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: const Color(0xFF091744),
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/logo_indiqai_branca_.png',
+                          width: MediaQuery.sizeOf(context).width * 0.5,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )
               : page;
 
           final transitionInfo = state.transitionInfo;
