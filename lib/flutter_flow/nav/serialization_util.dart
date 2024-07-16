@@ -258,8 +258,12 @@ dynamic deserializeParam<T>(
             return UsuariosRow(data);
           case ProductsRow:
             return ProductsRow(data);
+          case ProductRewardsRow:
+            return ProductRewardsRow(data);
           case RewardsViewRow:
             return RewardsViewRow(data);
+          case UserFavoritesRow:
+            return UserFavoritesRow(data);
           default:
             return null;
         }

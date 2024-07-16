@@ -8,4 +8,6 @@ export 'table.dart';
 export 'tables/rewards.dart';
 export 'tables/usuarios.dart';
 export 'tables/products.dart';
+export 'tables/product_rewards.dart';
 export 'tables/rewards_view.dart';
+export 'tables/user_favorites.dart';

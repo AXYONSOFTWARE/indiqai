@@ -1,18 +1,26 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import 'cadastro_widget.dart' show CadastroWidget;
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroModel extends FlutterFlowModel<CadastroWidget> {
+  ///  Local state fields for this page.
+
+  String? email;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // State field(s) for emailCadastro widget.
+  final emailCadastroKey = GlobalKey();
   FocusNode? emailCadastroFocusNode;
   TextEditingController? emailCadastroTextController;
+  String? emailCadastroSelectedOption;
   String? Function(BuildContext, String?)? emailCadastroTextControllerValidator;
   // State field(s) for cpfCadastro widget.
   FocusNode? cpfCadastroFocusNode;
   TextEditingController? cpfCadastroTextController;
+  final cpfCadastroMask = MaskTextInputFormatter(mask: '###.###.###-##');
   String? Function(BuildContext, String?)? cpfCadastroTextControllerValidator;
   // State field(s) for senha widget.
   FocusNode? senhaFocusNode;
@@ -36,7 +44,6 @@ class CadastroModel extends FlutterFlowModel<CadastroWidget> {
   void dispose() {
     unfocusNode.dispose();
     emailCadastroFocusNode?.dispose();
-    emailCadastroTextController?.dispose();
 
     cpfCadastroFocusNode?.dispose();
     cpfCadastroTextController?.dispose();

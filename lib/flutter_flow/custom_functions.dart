@@ -73,3 +73,44 @@ int returnIdSpinning(double rotationNumber) {
   }
   return 1;
 }
+
+List<String> combineString(String string) {
+  // a function that combine a string to "@gmail.com", "@icloud.com" and "@hotmail.com" and returns a list of string
+  return [
+    '$string@gmail.com',
+    '$string@icloud.com',
+    '$string@hotmail.com',
+  ];
+}
+
+bool cpfValidator(String cpf) {
+// Remove caracteres não numéricos
+  cpf = cpf.replaceAll(RegExp(r'[^0-9]'), '');
+
+  // Verifica se o CPF tem 11 dígitos
+  if (cpf.length != 11) {
+    return false;
+  }
+
+  // Verifica se todos os dígitos são iguais
+  if (RegExp(r'^(\d)\1*$').hasMatch(cpf)) {
+    return false;
+  }
+
+  // Cálculo do primeiro dígito verificador
+  int soma = 0;
+  for (int i = 0; i < 9; i++) {
+    soma += int.parse(cpf[i]) * (10 - i);
+  }
+  int primeiroDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
+
+  // Cálculo do segundo dígito verificador
+  soma = 0;
+  for (int i = 0; i < 10; i++) {
+    soma += int.parse(cpf[i]) * (11 - i);
+  }
+  int segundoDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
+
+  // Verifica os dígitos calculados com os dígitos do CPF
+  return cpf.endsWith('$primeiroDigito$segundoDigito');
+}

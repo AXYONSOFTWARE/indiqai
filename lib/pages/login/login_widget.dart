@@ -1,9 +1,12 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,7 +36,6 @@ class _LoginWidgetState extends State<LoginWidget>
     _model = createModel(context, () => LoginModel());
 
     _model.emailLoginTextController ??= TextEditingController();
-    _model.emailLoginFocusNode ??= FocusNode();
 
     _model.senhaTextController ??= TextEditingController();
     _model.senhaFocusNode ??= FocusNode();
@@ -228,101 +230,243 @@ class _LoginWidgetState extends State<LoginWidget>
                                             0.0, 0.0, 0.0, 16.0),
                                         child: SizedBox(
                                           width: double.infinity,
-                                          child: TextFormField(
-                                            controller:
-                                                _model.emailLoginTextController,
-                                            focusNode:
-                                                _model.emailLoginFocusNode,
-                                            autofocus: false,
-                                            autofillHints: const [
-                                              AutofillHints.email
-                                            ],
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText: 'E-mail',
-                                              labelStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
+                                          child: Autocomplete<String>(
+                                            initialValue: const TextEditingValue(),
+                                            optionsBuilder: (textEditingValue) {
+                                              if (textEditingValue.text == '') {
+                                                return const Iterable<
+                                                    String>.empty();
+                                              }
+                                              return functions
+                                                  .combineString(_model.email!)
+                                                  .where((option) {
+                                                final lowercaseOption =
+                                                    option.toLowerCase();
+                                                return lowercaseOption.contains(
+                                                    textEditingValue.text
+                                                        .toLowerCase());
+                                              });
+                                            },
+                                            optionsViewBuilder:
+                                                (context, onSelected, options) {
+                                              return AutocompleteOptionsList(
+                                                textFieldKey:
+                                                    _model.emailLoginKey,
+                                                textController: _model
+                                                    .emailLoginTextController!,
+                                                options: options.toList(),
+                                                onSelected: onSelected,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLargeFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLargeFamily),
+                                                        ),
+                                                textHighlightStyle: const TextStyle(),
+                                                elevation: 4.0,
+                                                optionBackgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                optionHighlightColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                maxHeight: 200.0,
+                                              );
+                                            },
+                                            onSelected: (String selection) {
+                                              setState(() => _model
+                                                      .emailLoginSelectedOption =
+                                                  selection);
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            fieldViewBuilder: (
+                                              context,
+                                              textEditingController,
+                                              focusNode,
+                                              onEditingComplete,
+                                            ) {
+                                              _model.emailLoginFocusNode =
+                                                  focusNode;
+
+                                              _model.emailLoginTextController =
+                                                  textEditingController;
+                                              return TextFormField(
+                                                key: _model.emailLoginKey,
+                                                controller:
+                                                    textEditingController,
+                                                focusNode: focusNode,
+                                                onEditingComplete:
+                                                    onEditingComplete,
+                                                onChanged: (_) =>
+                                                    EasyDebounce.debounce(
+                                                  '_model.emailLoginTextController',
+                                                  const Duration(milliseconds: 0),
+                                                  () async {
+                                                    _model.email = _model
+                                                        .emailLoginTextController
+                                                        .text;
+                                                    setState(() {});
+                                                  },
+                                                ),
+                                                autofocus: false,
+                                                autofillHints: const [
+                                                  AutofillHints.email
+                                                ],
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelText: 'E-mail',
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLarge
+                                                          .override(
+                                                            fontFamily:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily,
+                                                            letterSpacing: 0.0,
+                                                            useGoogleFonts: GoogleFonts
+                                                                    .asMap()
+                                                                .containsKey(
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelLargeFamily),
+                                                          ),
+                                                  hintText: 'Digite seu e-mail',
+                                                  errorStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .bodyLarge
                                                       .override(
                                                         fontFamily:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLargeFamily,
+                                                                .bodyLargeFamily,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        fontSize: 8.0,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
                                                             .containsKey(
                                                                 FlutterFlowTheme.of(
                                                                         context)
-                                                                    .labelLargeFamily),
+                                                                    .bodyLargeFamily),
                                                       ),
-                                              hintText: 'Digite seu e-mail',
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .alternate,
-                                                  width: 2.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              filled: true,
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyLarge
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyLargeFamily,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyLargeFamily),
+                                                              .primary,
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      width: 2.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryBackground,
+                                                  suffixIcon: _model
+                                                          .emailLoginTextController!
+                                                          .text
+                                                          .isNotEmpty
+                                                      ? InkWell(
+                                                          onTap: () async {
+                                                            _model
+                                                                .emailLoginTextController
+                                                                ?.clear();
+                                                            _model.email = _model
+                                                                .emailLoginTextController
+                                                                .text;
+                                                            setState(() {});
+                                                            setState(() {});
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.clear,
+                                                            color: Color(
+                                                                0xFF757575),
+                                                            size: 15.0,
+                                                          ),
+                                                        )
+                                                      : null,
                                                 ),
-                                            keyboardType:
-                                                TextInputType.emailAddress,
-                                            validator: _model
-                                                .emailLoginTextControllerValidator
-                                                .asValidator(context),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLargeFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLargeFamily),
+                                                        ),
+                                                keyboardType:
+                                                    TextInputType.emailAddress,
+                                                validator: _model
+                                                    .emailLoginTextControllerValidator
+                                                    .asValidator(context),
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),

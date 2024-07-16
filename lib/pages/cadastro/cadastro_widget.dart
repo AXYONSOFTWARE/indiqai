@@ -1,11 +1,15 @@
 import '/auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +37,6 @@ class _CadastroWidgetState extends State<CadastroWidget>
     _model = createModel(context, () => CadastroModel());
 
     _model.emailCadastroTextController ??= TextEditingController();
-    _model.emailCadastroFocusNode ??= FocusNode();
 
     _model.cpfCadastroTextController ??= TextEditingController();
     _model.cpfCadastroFocusNode ??= FocusNode();
@@ -225,97 +228,206 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                         0.0, 0.0, 0.0, 16.0),
                                     child: SizedBox(
                                       width: double.infinity,
-                                      child: TextFormField(
-                                        controller:
-                                            _model.emailCadastroTextController,
-                                        focusNode:
-                                            _model.emailCadastroFocusNode,
-                                        autofocus: true,
-                                        autofillHints: const [AutofillHints.email],
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          labelText: 'E-mail',
-                                          labelStyle: FlutterFlowTheme.of(
-                                                  context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLargeFamily,
-                                                letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelLargeFamily),
+                                      child: Autocomplete<String>(
+                                        initialValue: const TextEditingValue(),
+                                        optionsBuilder: (textEditingValue) {
+                                          if (textEditingValue.text == '') {
+                                            return const Iterable<
+                                                String>.empty();
+                                          }
+                                          return functions
+                                              .combineString(_model.email!)
+                                              .where((option) {
+                                            final lowercaseOption =
+                                                option.toLowerCase();
+                                            return lowercaseOption.contains(
+                                                textEditingValue.text
+                                                    .toLowerCase());
+                                          });
+                                        },
+                                        optionsViewBuilder:
+                                            (context, onSelected, options) {
+                                          return AutocompleteOptionsList(
+                                            textFieldKey:
+                                                _model.emailCadastroKey,
+                                            textController: _model
+                                                .emailCadastroTextController!,
+                                            options: options.toList(),
+                                            onSelected: onSelected,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMediumFamily,
+                                                      letterSpacing: 0.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMediumFamily),
+                                                    ),
+                                            textHighlightStyle: const TextStyle(),
+                                            elevation: 4.0,
+                                            optionBackgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryBackground,
+                                            optionHighlightColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            maxHeight: 200.0,
+                                          );
+                                        },
+                                        onSelected: (String selection) {
+                                          setState(() => _model
+                                                  .emailCadastroSelectedOption =
+                                              selection);
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        fieldViewBuilder: (
+                                          context,
+                                          textEditingController,
+                                          focusNode,
+                                          onEditingComplete,
+                                        ) {
+                                          _model.emailCadastroFocusNode =
+                                              focusNode;
+
+                                          _model.emailCadastroTextController =
+                                              textEditingController;
+                                          return TextFormField(
+                                            key: _model.emailCadastroKey,
+                                            controller: textEditingController,
+                                            focusNode: focusNode,
+                                            onEditingComplete:
+                                                onEditingComplete,
+                                            onChanged: (_) =>
+                                                EasyDebounce.debounce(
+                                              '_model.emailCadastroTextController',
+                                              const Duration(milliseconds: 0),
+                                              () async {
+                                                _model.email = _model
+                                                    .emailCadastroTextController
+                                                    .text;
+                                              },
+                                            ),
+                                            autofocus: true,
+                                            autofillHints: const [
+                                              AutofillHints.email
+                                            ],
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText: 'E-mail',
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLargeFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily),
+                                                      ),
+                                              hintText: 'Digite seu e-mail',
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
                                               ),
-                                          hintText: 'Digite seu e-mail',
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              filled: true,
+                                              fillColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryBackground,
-                                              width: 2.0,
+                                              suffixIcon: _model
+                                                      .emailCadastroTextController!
+                                                      .text
+                                                      .isNotEmpty
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        _model
+                                                            .emailCadastroTextController
+                                                            ?.clear();
+                                                        _model.email = _model
+                                                            .emailCadastroTextController
+                                                            .text;
+                                                        setState(() {});
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.clear,
+                                                        color:
+                                                            Color(0xFF757575),
+                                                        size: 15.0,
+                                                      ),
+                                                    )
+                                                  : null,
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          filled: true,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryBackground,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLargeFamily,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyLarge
+                                                .override(
+                                                  fontFamily:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLargeFamily,
+                                                  letterSpacing: 0.0,
+                                                  useGoogleFonts: GoogleFonts
+                                                          .asMap()
                                                       .containsKey(
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .bodyLargeFamily),
-                                            ),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        validator: _model
-                                            .emailCadastroTextControllerValidator
-                                            .asValidator(context),
+                                                ),
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                            validator: _model
+                                                .emailCadastroTextControllerValidator
+                                                .asValidator(context),
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
@@ -328,8 +440,12 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                         controller:
                                             _model.cpfCadastroTextController,
                                         focusNode: _model.cpfCadastroFocusNode,
+                                        onChanged: (_) => EasyDebounce.debounce(
+                                          '_model.cpfCadastroTextController',
+                                          const Duration(milliseconds: 2000),
+                                          () => setState(() {}),
+                                        ),
                                         autofocus: true,
-                                        autofillHints: const [AutofillHints.email],
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'CPF',
@@ -349,6 +465,25 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                                             .labelLargeFamily),
                                               ),
                                           hintText: 'Digite seu CPF',
+                                          errorStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyLarge
+                                              .override(
+                                                fontFamily:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLargeFamily,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                fontSize: 8.0,
+                                                letterSpacing: 0.0,
+                                                useGoogleFonts: GoogleFonts
+                                                        .asMap()
+                                                    .containsKey(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyLargeFamily),
+                                              ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
@@ -373,7 +508,7 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .alternate,
+                                                      .error,
                                               width: 2.0,
                                             ),
                                             borderRadius:
@@ -384,7 +519,7 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                             borderSide: BorderSide(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .alternate,
+                                                      .error,
                                               width: 2.0,
                                             ),
                                             borderRadius:
@@ -414,6 +549,9 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                         validator: _model
                                             .cpfCadastroTextControllerValidator
                                             .asValidator(context),
+                                        inputFormatters: [
+                                          _model.cpfCadastroMask
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -650,93 +788,285 @@ class _CadastroWidgetState extends State<CadastroWidget>
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        if (_model.senhaTextController.text !=
-                                            _model.senhaConfirmarTextController
-                                                .text) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'Passwords don\'t match!',
+                                    child: FutureBuilder<List<UsuariosRow>>(
+                                      future: UsuariosTable().querySingleRow(
+                                        queryFn: (q) => q.eq(
+                                          'cpf',
+                                          _model.cpfCadastroTextController.text,
+                                        ),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitRipple(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 50.0,
                                               ),
                                             ),
                                           );
-                                          return;
                                         }
+                                        List<UsuariosRow>
+                                            buttonCadastroUsuariosRowList =
+                                            snapshot.data!;
 
-                                        final user = await authManager
-                                            .createAccountWithEmail(
-                                          context,
-                                          _model
-                                              .emailCadastroTextController.text,
-                                          _model.senhaTextController.text,
-                                        );
-                                        if (user == null) {
-                                          return;
-                                        }
+                                        final buttonCadastroUsuariosRow =
+                                            buttonCadastroUsuariosRowList
+                                                    .isNotEmpty
+                                                ? buttonCadastroUsuariosRowList
+                                                    .first
+                                                : null;
+                                        return FFButtonWidget(
+                                          onPressed: () async {
+                                            if (functions.cpfValidator(_model
+                                                .cpfCadastroTextController
+                                                .text)) {
+                                              if (buttonCadastroUsuariosRow
+                                                      ?.cpf ==
+                                                  _model
+                                                      .cpfCadastroTextController
+                                                      .text) {
+                                                ScaffoldMessenger.of(context)
+                                                    .clearSnackBars();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'CPF já está em uso.',
+                                                      style: TextStyle(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    duration: const Duration(
+                                                        milliseconds: 4000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .warning,
+                                                    action: SnackBarAction(
+                                                      label:
+                                                          'Ir para a pagina de login',
+                                                      textColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      onPressed: () async {
+                                                        context.pushNamedAuth(
+                                                          'Login',
+                                                          context.mounted,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            kTransitionInfoKey:
+                                                                const TransitionInfo(
+                                                              hasTransition:
+                                                                  true,
+                                                              transitionType:
+                                                                  PageTransitionType
+                                                                      .rightToLeft,
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                            ),
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                );
+                                                return;
+                                              } else {
+                                                if (buttonCadastroUsuariosRow
+                                                        ?.email ==
+                                                    _model
+                                                        .emailCadastroSelectedOption) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'O ${_model.emailCadastroSelectedOption}já está em uso.',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          shadows: [
+                                                            Shadow(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryText,
+                                                              offset: const Offset(
+                                                                  2.0, 2.0),
+                                                              blurRadius: 2.0,
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      duration: const Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .warning,
+                                                      action: SnackBarAction(
+                                                        label:
+                                                            'Ir para a página de login',
+                                                        textColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        onPressed: () async {
+                                                          context.pushNamedAuth(
+                                                              'Login',
+                                                              context.mounted);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  GoRouter.of(context)
+                                                      .prepareAuthEvent();
+                                                  if (_model.senhaTextController
+                                                          .text !=
+                                                      _model
+                                                          .senhaConfirmarTextController
+                                                          .text) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      const SnackBar(
+                                                        content: Text(
+                                                          'Passwords don\'t match!',
+                                                        ),
+                                                      ),
+                                                    );
+                                                    return;
+                                                  }
 
-                                        context.goNamedAuth(
-                                            'fotoPerfil', context.mounted);
+                                                  final user = await authManager
+                                                      .createAccountWithEmail(
+                                                    context,
+                                                    _model
+                                                        .emailCadastroTextController
+                                                        .text,
+                                                    _model.senhaTextController
+                                                        .text,
+                                                  );
+                                                  if (user == null) {
+                                                    return;
+                                                  }
 
-                                        await UsuariosTable().insert({
-                                          'email': currentUserEmail,
-                                          'id': currentUserUid,
-                                          'password':
-                                              _model.senhaTextController.text,
-                                          'cpf': _model
-                                              .cpfCadastroTextController.text,
-                                          'created_at': supaSerialize<DateTime>(
-                                              getCurrentTimestamp),
-                                        });
-                                        await RewardsTable().update(
-                                          data: {
-                                            'user_id': currentUserUid,
-                                            'is_active': true,
+                                                  context.goNamedAuth(
+                                                      'fotoPerfil',
+                                                      context.mounted);
+
+                                                  await UsuariosTable().insert({
+                                                    'email': currentUserEmail,
+                                                    'id': currentUserUid,
+                                                    'password': _model
+                                                        .senhaTextController
+                                                        .text,
+                                                    'cpf': _model
+                                                        .cpfCadastroTextController
+                                                        .text,
+                                                    'created_at': supaSerialize<
+                                                            DateTime>(
+                                                        getCurrentTimestamp),
+                                                  });
+                                                  await RewardsTable().update(
+                                                    data: {
+                                                      'user_id': currentUserUid,
+                                                      'is_active': true,
+                                                    },
+                                                    matchingRows: (rows) =>
+                                                        rows.eq(
+                                                      'session_id',
+                                                      FFAppState().sessionId,
+                                                    ),
+                                                  );
+                                                }
+
+                                                return;
+                                              }
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'CPF: ${_model.cpfCadastroTextController.text} não é válido, tente novamente.',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  duration: const Duration(
+                                                      milliseconds: 5000),
+                                                  backgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .warning,
+                                                ),
+                                              );
+                                              setState(() {
+                                                _model.cpfCadastroTextController
+                                                    ?.clear();
+                                              });
+                                              return;
+                                            }
                                           },
-                                          matchingRows: (rows) => rows.eq(
-                                            'session_id',
-                                            FFAppState().sessionId,
+                                          text: 'Cadastrar',
+                                          options: FFButtonOptions(
+                                            width: double.infinity,
+                                            height: 44.0,
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmallFamily,
+                                                      color: Colors.white,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 0.0,
+                                                      useGoogleFonts: GoogleFonts
+                                                              .asMap()
+                                                          .containsKey(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleSmallFamily),
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
                                           ),
                                         );
                                       },
-                                      text: 'Cadastrar',
-                                      options: FFButtonOptions(
-                                        width: double.infinity,
-                                        height: 44.0,
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
-                                        iconPadding:
-                                            const EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmallFamily,
-                                              color: Colors.white,
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmallFamily),
-                                            ),
-                                        elevation: 3.0,
-                                        borderSide: const BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                      ),
                                     ),
                                   ),
                                   Padding(

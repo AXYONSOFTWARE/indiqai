@@ -3,12 +3,18 @@ import 'login_widget.dart' show LoginWidget;
 import 'package:flutter/material.dart';
 
 class LoginModel extends FlutterFlowModel<LoginWidget> {
+  ///  Local state fields for this page.
+
+  String? email;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // State field(s) for emailLogin widget.
+  final emailLoginKey = GlobalKey();
   FocusNode? emailLoginFocusNode;
   TextEditingController? emailLoginTextController;
+  String? emailLoginSelectedOption;
   String? Function(BuildContext, String?)? emailLoginTextControllerValidator;
   // State field(s) for senha widget.
   FocusNode? senhaFocusNode;
@@ -25,7 +31,6 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
   void dispose() {
     unfocusNode.dispose();
     emailLoginFocusNode?.dispose();
-    emailLoginTextController?.dispose();
 
     senhaFocusNode?.dispose();
     senhaTextController?.dispose();
