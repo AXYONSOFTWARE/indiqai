@@ -8,16 +8,16 @@ class FotoPerfilModel extends FlutterFlowModel<FotoPerfilWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for nomeCadastro widget.
-  FocusNode? nomeCadastroFocusNode;
-  TextEditingController? nomeCadastroTextController;
-  String? Function(BuildContext, String?)? nomeCadastroTextControllerValidator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
 
   Completer<List<UsuariosRow>>? requestCompleter;
+  // State field(s) for nomeCadastro widget.
+  FocusNode? nomeCadastroFocusNode;
+  TextEditingController? nomeCadastroTextController;
+  String? Function(BuildContext, String?)? nomeCadastroTextControllerValidator;
 
   @override
   void initState(BuildContext context) {}

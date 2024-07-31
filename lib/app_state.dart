@@ -37,4 +37,10 @@ class FFAppState extends ChangeNotifier {
   set spinningId(int value) {
     _spinningId = value;
   }
+
+  bool _hasCuppon = false;
+  bool get hasCuppon => _hasCuppon;
+  set hasCuppon(bool value) {
+    _hasCuppon = value;
+  }
 }

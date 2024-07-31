@@ -12,19 +12,19 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'login_copy_model.dart';
+export 'login_copy_model.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+class LoginCopyWidget extends StatefulWidget {
+  const LoginCopyWidget({super.key});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<LoginCopyWidget> createState() => _LoginCopyWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget>
+class _LoginCopyWidgetState extends State<LoginCopyWidget>
     with TickerProviderStateMixin {
-  late LoginModel _model;
+  late LoginCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,7 +33,7 @@ class _LoginWidgetState extends State<LoginWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => LoginCopyModel());
 
     _model.emailLoginTextController ??= TextEditingController();
 
@@ -723,7 +723,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .labelLargeFamily,
-                                                  fontSize: 14.0,
+                                                  fontSize: 16.0,
                                                   letterSpacing: 0.0,
                                                   decoration:
                                                       TextDecoration.underline,

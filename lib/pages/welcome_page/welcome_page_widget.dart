@@ -47,7 +47,6 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget> {
           visible: responsiveVisibility(
             context: context,
             tablet: false,
-            desktop: false,
           ),
           child: Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
@@ -84,7 +83,7 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget> {
                         child: Image.asset(
                           'assets/images/IMG_0300.jpeg',
                           width: 300.0,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -94,7 +93,7 @@ class _WelcomePageWidgetState extends State<WelcomePageWidget> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
-                        'assets/images/LOGO_INDIQ.AI_(1)_1.png',
+                        'assets/images/logo_indiqai_branca_.png',
                         width: 150.0,
                         height: 67.0,
                         fit: BoxFit.contain,

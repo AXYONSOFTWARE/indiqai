@@ -23,9 +23,6 @@ class UsuariosRow extends SupabaseDataRow {
   String? get name => getField<String>('name');
   set name(String? value) => setField<String>('name', value);
 
-  String? get displayName => getField<String>('display_name');
-  set displayName(String? value) => setField<String>('display_name', value);
-
   String? get email => getField<String>('email');
   set email(String? value) => setField<String>('email', value);
 
@@ -40,4 +37,12 @@ class UsuariosRow extends SupabaseDataRow {
 
   String? get cpf => getField<String>('cpf');
   set cpf(String? value) => setField<String>('cpf', value);
+
+  List<String> get rewardsReceived => getListField<String>('rewards_received');
+  set rewardsReceived(List<String>? value) =>
+      setListField<String>('rewards_received', value);
+
+  List<String> get rewardsUsed => getListField<String>('rewards_used');
+  set rewardsUsed(List<String>? value) =>
+      setListField<String>('rewards_used', value);
 }

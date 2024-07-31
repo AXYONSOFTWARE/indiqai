@@ -81,57 +81,89 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/',
           builder: (context, _) =>
               appStateNotifier.loggedIn ? const RoletaWidget() : const WelcomePageWidget(),
+          routes: [
+            FFRoute(
+              name: 'roleta',
+              path: 'roleta',
+              builder: (context, params) => const RoletaWidget(),
+            ),
+            FFRoute(
+              name: 'WelcomePage',
+              path: 'welcomePage',
+              builder: (context, params) => const WelcomePageWidget(),
+            ),
+            FFRoute(
+              name: 'premios',
+              path: 'premios',
+              builder: (context, params) => const PremiosWidget(),
+            ),
+            FFRoute(
+              name: 'CadastroV2',
+              path: 'cadastroV2',
+              builder: (context, params) => const CadastroV2Widget(),
+            ),
+            FFRoute(
+              name: 'DetalhePremio',
+              path: 'detalhePremio',
+              builder: (context, params) => const DetalhePremioWidget(),
+            ),
+            FFRoute(
+              name: 'Login',
+              path: 'login',
+              builder: (context, params) => const LoginWidget(),
+            ),
+            FFRoute(
+              name: 'fotoPerfil',
+              path: 'fotoPerfil',
+              builder: (context, params) => const FotoPerfilWidget(),
+            ),
+            FFRoute(
+              name: 'HomePageCopy',
+              path: 'homePageCopy',
+              builder: (context, params) => const HomePageCopyWidget(),
+            ),
+            FFRoute(
+              name: 'semsorte',
+              path: 'semsorte',
+              builder: (context, params) => const SemsorteWidget(),
+            ),
+            FFRoute(
+              name: 'Cadastronull',
+              path: 'CadastroNull',
+              builder: (context, params) => const CadastronullWidget(),
+            ),
+            FFRoute(
+              name: 'sadFace',
+              path: 'sadFace',
+              builder: (context, params) => const SadFaceWidget(),
+            ),
+            FFRoute(
+              name: 'LoginCopy',
+              path: 'loginCopy',
+              builder: (context, params) => const LoginCopyWidget(),
+            ),
+            FFRoute(
+              name: 'redefinirSenha',
+              path: 'redefinirSenha',
+              builder: (context, params) => RedefinirSenhaWidget(
+                emailfromLogin: params.getParam(
+                  'emailfromLogin',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'redefinirSenhaCopy',
+              path: 'redefinirSenhaCopy',
+              builder: (context, params) => const RedefinirSenhaCopyWidget(),
+            ),
+            FFRoute(
+              name: 'fotoPerfilCopy',
+              path: 'fotoPerfilCopy',
+              builder: (context, params) => const FotoPerfilCopyWidget(),
+            )
+          ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
-        FFRoute(
-          name: 'roleta',
-          path: '/roleta',
-          builder: (context, params) => const RoletaWidget(),
-        ),
-        FFRoute(
-          name: 'WelcomePage',
-          path: '/welcomePage',
-          builder: (context, params) => const WelcomePageWidget(),
-        ),
-        FFRoute(
-          name: 'premios',
-          path: '/premios',
-          builder: (context, params) => const PremiosWidget(),
-        ),
-        FFRoute(
-          name: 'Cadastro',
-          path: '/cadastro',
-          builder: (context, params) => const CadastroWidget(),
-        ),
-        FFRoute(
-          name: 'DetalhePremio',
-          path: '/detalhePremio',
-          builder: (context, params) => const DetalhePremioWidget(),
-        ),
-        FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => const LoginWidget(),
-        ),
-        FFRoute(
-          name: 'fotoPerfil',
-          path: '/fotoPerfil',
-          builder: (context, params) => const FotoPerfilWidget(),
-        ),
-        FFRoute(
-          name: 'HomePageCopy',
-          path: '/homePageCopy',
-          builder: (context, params) => const HomePageCopyWidget(),
-        ),
-        FFRoute(
-          name: 'semsorte',
-          path: '/semsorte',
-          builder: (context, params) => const SemsorteWidget(),
-        ),
-        FFRoute(
-          name: 'Cadastronull',
-          path: '/CadastroNull',
-          builder: (context, params) => const CadastronullWidget(),
-        )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -317,18 +349,16 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? isWeb
-                  ? Container()
-                  : Container(
-                      color: const Color(0xFF091744),
-                      child: Center(
-                        child: Image.asset(
-                          'assets/images/logo_indiqai_branca_.png',
-                          width: MediaQuery.sizeOf(context).width * 0.5,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    )
+              ? Container(
+                  color: const Color(0xFF091744),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Design_sem_nome(1).gif',
+                      width: MediaQuery.sizeOf(context).width * 0.6,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
               : page;
 
           final transitionInfo = state.transitionInfo;

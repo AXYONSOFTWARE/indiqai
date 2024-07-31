@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      Duration(milliseconds: isWeb ? 0 : 3000),
+      const Duration(milliseconds: 5000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'IndiqAi',
+      title: 'IndiqAI',
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

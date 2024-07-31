@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -57,26 +56,6 @@ class _SemsorteWidgetState extends State<SemsorteWidget> {
                     Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: FlutterFlowIconButton(
-                          borderRadius: 20.0,
-                          borderWidth: 1.0,
-                          buttonSize: 40.0,
-                          fillColor: const Color(0xFF4B39EF),
-                          icon: const Icon(
-                            Icons.restart_alt,
-                            color: Colors.white,
-                            size: 24.0,
-                          ),
-                          onPressed: () async {
-                            context.pushNamed('roleta');
-                          },
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                         child: Text(
@@ -127,7 +106,7 @@ class _SemsorteWidgetState extends State<SemsorteWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.pushNamed('Cadastronull');
+                          context.pushNamed('CadastroV2');
                         },
                         text: 'Avançar',
                         options: FFButtonOptions(

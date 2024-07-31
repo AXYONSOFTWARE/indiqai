@@ -73,6 +73,7 @@ class _PremiosWidgetState extends State<PremiosWidget> {
         final premiosRewardsRow = premiosRewardsRowList.isNotEmpty
             ? premiosRewardsRowList.first
             : null;
+
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -87,7 +88,7 @@ class _PremiosWidgetState extends State<PremiosWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
-                        'assets/images/FUNDO_2_PREMIOS.png',
+                        'assets/images/FUNDO_AZUL.jpg',
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: MediaQuery.sizeOf(context).height * 1.0,
                         fit: BoxFit.cover,
@@ -104,7 +105,7 @@ class _PremiosWidgetState extends State<PremiosWidget> {
                             'assets/images/LOGO_INDIQ.AI_(1)_1.png',
                             width: 150.0,
                             height: 50.0,
-                            fit: BoxFit.none,
+                            fit: BoxFit.fitWidth,
                             alignment: const Alignment(0.0, 0.0),
                           ),
                         ),
@@ -242,24 +243,30 @@ class _PremiosWidgetState extends State<PremiosWidget> {
                                   ),
                                   Align(
                                     alignment: const AlignmentDirectional(0.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        premiosRewardsRow?.name,
-                                        'sem nome',
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 12.0, 0.0, 0.0),
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          premiosRewardsRow?.name,
+                                          'sem nome',
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displayLarge
+                                            .override(
+                                              fontFamily: 'Nunito',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 32.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w900,
+                                              useGoogleFonts:
+                                                  GoogleFonts.asMap()
+                                                      .containsKey('Nunito'),
+                                            ),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .displayLarge
-                                          .override(
-                                            fontFamily: 'Nunito',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                            fontSize: 28.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w900,
-                                            useGoogleFonts: GoogleFonts.asMap()
-                                                .containsKey('Nunito'),
-                                          ),
                                     ),
                                   ),
                                   Padding(
@@ -275,7 +282,7 @@ class _PremiosWidgetState extends State<PremiosWidget> {
                                     padding: const EdgeInsets.all(24.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        context.pushNamed('Cadastro');
+                                        context.pushNamed('CadastroV2');
                                       },
                                       text: 'Resgatar meu prêmio',
                                       options: FFButtonOptions(

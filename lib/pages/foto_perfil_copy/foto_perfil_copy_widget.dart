@@ -4,25 +4,23 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'foto_perfil_model.dart';
-export 'foto_perfil_model.dart';
+import 'foto_perfil_copy_model.dart';
+export 'foto_perfil_copy_model.dart';
 
-class FotoPerfilWidget extends StatefulWidget {
-  const FotoPerfilWidget({super.key});
+class FotoPerfilCopyWidget extends StatefulWidget {
+  const FotoPerfilCopyWidget({super.key});
 
   @override
-  State<FotoPerfilWidget> createState() => _FotoPerfilWidgetState();
+  State<FotoPerfilCopyWidget> createState() => _FotoPerfilCopyWidgetState();
 }
 
-class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
+class _FotoPerfilCopyWidgetState extends State<FotoPerfilCopyWidget>
     with TickerProviderStateMixin {
-  late FotoPerfilModel _model;
+  late FotoPerfilCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +29,7 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => FotoPerfilModel());
+    _model = createModel(context, () => FotoPerfilCopyModel());
 
     _model.nomeCadastroTextController ??= TextEditingController();
     _model.nomeCadastroFocusNode ??= FocusNode();
@@ -152,15 +150,12 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 16.0),
                         child: FutureBuilder<List<UsuariosRow>>(
-                          future: (_model.requestCompleter ??=
-                                  Completer<List<UsuariosRow>>()
-                                    ..complete(UsuariosTable().querySingleRow(
-                                      queryFn: (q) => q.eq(
-                                        'id',
-                                        currentUserUid,
-                                      ),
-                                    )))
-                              .future,
+                          future: UsuariosTable().querySingleRow(
+                            queryFn: (q) => q.eq(
+                              'id',
+                              currentUserUid,
+                            ),
+                          ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -251,122 +246,6 @@ class _FotoPerfilWidgetState extends State<FotoPerfilWidget>
                                                                 context)
                                                             .labelLargeFamily),
                                               ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 24.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            final selectedMedia =
-                                                await selectMedia(
-                                              storageFolderPath: 'usuarios',
-                                              maxWidth: 3000.00,
-                                              maxHeight: 3000.00,
-                                              imageQuality: 69,
-                                              mediaSource:
-                                                  MediaSource.photoGallery,
-                                              multiImage: false,
-                                            );
-                                            if (selectedMedia != null &&
-                                                selectedMedia.every((m) =>
-                                                    validateFileFormat(
-                                                        m.storagePath,
-                                                        context))) {
-                                              setState(() => _model
-                                                  .isDataUploading = true);
-                                              var selectedUploadedFiles =
-                                                  <FFUploadedFile>[];
-
-                                              var downloadUrls = <String>[];
-                                              try {
-                                                selectedUploadedFiles =
-                                                    selectedMedia
-                                                        .map((m) =>
-                                                            FFUploadedFile(
-                                                              name: m
-                                                                  .storagePath
-                                                                  .split('/')
-                                                                  .last,
-                                                              bytes: m.bytes,
-                                                              height: m
-                                                                  .dimensions
-                                                                  ?.height,
-                                                              width: m
-                                                                  .dimensions
-                                                                  ?.width,
-                                                              blurHash:
-                                                                  m.blurHash,
-                                                            ))
-                                                        .toList();
-
-                                                downloadUrls =
-                                                    await uploadSupabaseStorageFiles(
-                                                  bucketName: 'Perfil',
-                                                  selectedFiles: selectedMedia,
-                                                );
-                                              } finally {
-                                                _model.isDataUploading = false;
-                                              }
-                                              if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
-                                                setState(() {
-                                                  _model.uploadedLocalFile =
-                                                      selectedUploadedFiles
-                                                          .first;
-                                                  _model.uploadedFileUrl =
-                                                      downloadUrls.first;
-                                                });
-                                              } else {
-                                                setState(() {});
-                                                return;
-                                              }
-                                            }
-
-                                            await UsuariosTable().update(
-                                              data: {
-                                                'photo_url':
-                                                    valueOrDefault<String>(
-                                                  _model.uploadedFileUrl,
-                                                  'null',
-                                                ),
-                                              },
-                                              matchingRows: (rows) => rows.eq(
-                                                'id',
-                                                currentUserUid,
-                                              ),
-                                            );
-                                            setState(() =>
-                                                _model.requestCompleter = null);
-                                            await _model
-                                                .waitForRequestCompleted();
-                                          },
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.7,
-                                            height: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.7,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.network(
-                                              valueOrDefault<String>(
-                                                fotoUsuariosRow?.photoUrl,
-                                                'https://rzljgqcrlznbanqmbvvd.supabase.co/storage/v1/object/public/imagem/Produtos/perifl.png',
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
                                         ),
                                       ),
                                       Padding(

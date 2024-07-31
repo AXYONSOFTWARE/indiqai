@@ -142,10 +142,10 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
-                                  'assets/images/indqai_logo_branca_png.png',
+                                  'assets/images/logo_indiqai_branca-total_.png',
                                   width: 250.0,
                                   height: 80.0,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ],
@@ -256,6 +256,7 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                                 ? emailCadastroUsuariosRowList
                                                     .first
                                                 : null;
+
                                         return SizedBox(
                                           width: double.infinity,
                                           child: Autocomplete<String>(
@@ -852,6 +853,7 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                                 ? buttonCadastroUsuariosRowList
                                                     .first
                                                 : null;
+
                                         return FFButtonWidget(
                                           onPressed: () async {
                                             if (functions.cpfValidator(_model
@@ -911,134 +913,87 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                                 );
                                                 return;
                                               } else {
-                                                if ((buttonCadastroUsuariosRow
-                                                            ?.email ==
-                                                        _model
-                                                            .emailCadastroTextController
-                                                            .text) ||
-                                                    (buttonCadastroUsuariosRow
-                                                            ?.email ==
-                                                        _model
-                                                            .emailCadastroSelectedOption)) {
-                                                  ScaffoldMessenger.of(context)
-                                                      .clearSnackBars();
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'O E-mail já está em uso',
-                                                        style: TextStyle(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                        ),
-                                                      ),
-                                                      duration: const Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      action: SnackBarAction(
-                                                        label:
-                                                            'Ir para a página de login',
-                                                        textColor:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        onPressed: () async {
-                                                          context.pushNamedAuth(
-                                                              'Login',
-                                                              context.mounted);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  GoRouter.of(context)
-                                                      .prepareAuthEvent();
-                                                  if (_model.senhaTextController
-                                                          .text !=
-                                                      _model
-                                                          .senhaConfirmarTextController
-                                                          .text) {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      const SnackBar(
-                                                        content: Text(
-                                                          'Passwords don\'t match!',
-                                                        ),
-                                                      ),
-                                                    );
-                                                    return;
-                                                  }
-
-                                                  final user = await authManager
-                                                      .createAccountWithEmail(
-                                                    context,
+                                                GoRouter.of(context)
+                                                    .prepareAuthEvent();
+                                                if (_model.senhaTextController
+                                                        .text !=
                                                     _model
-                                                        .emailCadastroTextController
-                                                        .text,
-                                                    _model.senhaTextController
-                                                        .text,
-                                                  );
-                                                  if (user == null) {
-                                                    return;
-                                                  }
-
-                                                  ScaffoldMessenger.of(context)
-                                                      .clearSnackBars();
+                                                        .senhaConfirmarTextController
+                                                        .text) {
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                    SnackBar(
+                                                    const SnackBar(
                                                       content: Text(
-                                                        'Conta criada!',
-                                                        style: TextStyle(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          shadows: [
-                                                            Shadow(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryText,
-                                                              offset: const Offset(
-                                                                  2.0, 2.0),
-                                                              blurRadius: 2.0,
-                                                            )
-                                                          ],
-                                                        ),
+                                                        'Passwords don\'t match!',
                                                       ),
-                                                      duration: const Duration(
-                                                          milliseconds: 2000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .success,
                                                     ),
                                                   );
-
-                                                  context.goNamedAuth(
-                                                      'fotoPerfil',
-                                                      context.mounted);
-
-                                                  await UsuariosTable().insert({
-                                                    'email': currentUserEmail,
-                                                    'id': currentUserUid,
-                                                    'password': _model
-                                                        .senhaTextController
-                                                        .text,
-                                                    'cpf': _model
-                                                        .cpfCadastroTextController
-                                                        .text,
-                                                    'created_at': supaSerialize<
-                                                            DateTime>(
-                                                        getCurrentTimestamp),
-                                                  });
+                                                  return;
                                                 }
+
+                                                final user = await authManager
+                                                    .createAccountWithEmail(
+                                                  context,
+                                                  _model
+                                                      .emailCadastroTextController
+                                                      .text,
+                                                  _model
+                                                      .senhaTextController.text,
+                                                );
+                                                if (user == null) {
+                                                  return;
+                                                }
+
+                                                ScaffoldMessenger.of(context)
+                                                    .clearSnackBars();
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Conta criada!',
+                                                      style: TextStyle(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        shadows: [
+                                                          Shadow(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            offset: const Offset(
+                                                                2.0, 2.0),
+                                                            blurRadius: 2.0,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    duration: const Duration(
+                                                        milliseconds: 2000),
+                                                    backgroundColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .success,
+                                                  ),
+                                                );
+
+                                                context.goNamedAuth(
+                                                    'fotoPerfil',
+                                                    context.mounted);
+
+                                                await UsuariosTable().insert({
+                                                  'email': currentUserEmail,
+                                                  'id': currentUserUid,
+                                                  'password': _model
+                                                      .senhaTextController.text,
+                                                  'cpf': _model
+                                                      .cpfCadastroTextController
+                                                      .text,
+                                                  'created_at':
+                                                      supaSerialize<DateTime>(
+                                                          getCurrentTimestamp),
+                                                });
                                               }
 
                                               return;
@@ -1049,10 +1004,9 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                                   content: Text(
                                                     'CPF: ${_model.cpfCadastroTextController.text} não é válido, tente novamente.',
                                                     style: TextStyle(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
                                                     ),
                                                   ),
                                                   duration: const Duration(
@@ -1060,7 +1014,7 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                                   backgroundColor:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .warning,
+                                                          .error,
                                                 ),
                                               );
                                               setState(() {
@@ -1120,7 +1074,7 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('Login');
+                                        context.pushNamed('LoginCopy');
                                       },
                                       child: Text(
                                         'Já tem uma conta?',
@@ -1176,9 +1130,13 @@ class _CadastronullWidgetState extends State<CadastronullWidget>
                                         if (user == null) {
                                           return;
                                         }
+                                        await UsuariosTable().insert({
+                                          'id': currentUserUid,
+                                          'email': currentUserEmail,
+                                        });
 
                                         context.pushNamedAuth(
-                                            'DetalhePremio', context.mounted);
+                                            'fotoPerfil', context.mounted);
                                       },
                                       text: 'Login do Google',
                                       icon: const FaIcon(
