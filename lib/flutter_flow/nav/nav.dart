@@ -9,6 +9,7 @@ import '/backend/schema/structs/index.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -74,93 +75,137 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const RoletaWidget() : const WelcomePageWidget(),
+          appStateNotifier.loggedIn ? const HomeWidget() : const QrCodeScannerWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const RoletaWidget() : const WelcomePageWidget(),
+              appStateNotifier.loggedIn ? const HomeWidget() : const QrCodeScannerWidget(),
           routes: [
             FFRoute(
-              name: 'roleta',
-              path: 'roleta',
-              builder: (context, params) => const RoletaWidget(),
-            ),
-            FFRoute(
               name: 'WelcomePage',
-              path: 'welcomePage',
-              builder: (context, params) => const WelcomePageWidget(),
+              path: 'welcome-page/:id',
+              builder: (context, params) => WelcomePageWidget(
+                id: params.getParam(
+                  'id',
+                  ParamType.int,
+                ),
+              ),
             ),
             FFRoute(
-              name: 'premios',
-              path: 'premios',
-              builder: (context, params) => const PremiosWidget(),
+              name: 'home',
+              path: 'home',
+              requireAuth: true,
+              builder: (context, params) => const HomeWidget(),
             ),
             FFRoute(
-              name: 'CadastroV2',
-              path: 'cadastroV2',
-              builder: (context, params) => const CadastroV2Widget(),
+              name: 'TESTEAPENASPARASETARESTAURANTE',
+              path: 'testeapenasparasetarestaurante',
+              builder: (context, params) =>
+                  TesteapenasparasetarestauranteWidget(
+                id: params.getParam(
+                  'id',
+                  ParamType.int,
+                ),
+              ),
             ),
             FFRoute(
-              name: 'DetalhePremio',
-              path: 'detalhePremio',
-              builder: (context, params) => const DetalhePremioWidget(),
+              name: 'roleta',
+              path: 'roleta/:id',
+              requireAuth: true,
+              builder: (context, params) => RoletaWidget(
+                id: params.getParam(
+                  'id',
+                  ParamType.int,
+                ),
+              ),
             ),
             FFRoute(
-              name: 'Login',
-              path: 'login',
-              builder: (context, params) => const LoginWidget(),
+              name: 'profile',
+              path: 'profile',
+              requireAuth: true,
+              builder: (context, params) => const ProfileWidget(),
             ),
             FFRoute(
-              name: 'fotoPerfil',
-              path: 'fotoPerfil',
-              builder: (context, params) => const FotoPerfilWidget(),
-            ),
-            FFRoute(
-              name: 'HomePageCopy',
-              path: 'homePageCopy',
-              builder: (context, params) => const HomePageCopyWidget(),
-            ),
-            FFRoute(
-              name: 'semsorte',
-              path: 'semsorte',
-              builder: (context, params) => const SemsorteWidget(),
-            ),
-            FFRoute(
-              name: 'Cadastronull',
-              path: 'CadastroNull',
-              builder: (context, params) => const CadastronullWidget(),
-            ),
-            FFRoute(
-              name: 'sadFace',
-              path: 'sadFace',
-              builder: (context, params) => const SadFaceWidget(),
-            ),
-            FFRoute(
-              name: 'LoginCopy',
-              path: 'loginCopy',
-              builder: (context, params) => const LoginCopyWidget(),
-            ),
-            FFRoute(
-              name: 'redefinirSenha',
-              path: 'redefinirSenha',
-              builder: (context, params) => RedefinirSenhaWidget(
-                emailfromLogin: params.getParam(
-                  'emailfromLogin',
+              name: 'cadastro',
+              path: 'login/:indicationToken',
+              builder: (context, params) => CadastroWidget(
+                id: params.getParam(
+                  'id',
+                  ParamType.int,
+                ),
+                indicationToken: params.getParam(
+                  'indicationToken',
                   ParamType.String,
                 ),
               ),
             ),
             FFRoute(
-              name: 'redefinirSenhaCopy',
-              path: 'redefinirSenhaCopy',
-              builder: (context, params) => const RedefinirSenhaCopyWidget(),
+              name: 'redefinir',
+              path: 'redefinir',
+              builder: (context, params) => RedefinirWidget(
+                emailFromLogin: params.getParam(
+                  'emailFromLogin',
+                  ParamType.String,
+                ),
+              ),
             ),
             FFRoute(
-              name: 'fotoPerfilCopy',
-              path: 'fotoPerfilCopy',
-              builder: (context, params) => const FotoPerfilCopyWidget(),
+              name: 'NovaSenha',
+              path: 'novasenha',
+              requireAuth: true,
+              builder: (context, params) => NovaSenhaWidget(
+                id: params.getParam(
+                  'id',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'store',
+              path: 'store',
+              builder: (context, params) => StoreWidget(
+                restaurantID: params.getParam(
+                  'restaurantID',
+                  ParamType.String,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'qrCodeScanner',
+              path: 'qrcode',
+              builder: (context, params) => const QrCodeScannerWidget(),
+            ),
+            FFRoute(
+              name: 'storeCopy',
+              path: 'storeDetail',
+              builder: (context, params) => StoreCopyWidget(
+                restaurantID: params.getParam(
+                  'restaurantID',
+                  ParamType.int,
+                ),
+              ),
+            ),
+            FFRoute(
+              name: 'Success02',
+              path: 'success02',
+              builder: (context, params) => const Success02Widget(),
+            ),
+            FFRoute(
+              name: 'ListCupons',
+              path: 'listCupons',
+              builder: (context, params) => const ListCuponsWidget(),
+            ),
+            FFRoute(
+              name: 'ListRodadas',
+              path: 'listRodadas',
+              builder: (context, params) => const ListRodadasWidget(),
+            ),
+            FFRoute(
+              name: 'TermosUsoPrivacidade',
+              path: 'termosUsoPrivacidade',
+              builder: (context, params) => const TermosUsoPrivacidadeWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -335,7 +380,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/welcomePage';
+            return '/qrcode';
           }
           return null;
         },
@@ -349,16 +394,18 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: const Color(0xFF091744),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/Design_sem_nome(1).gif',
-                      width: MediaQuery.sizeOf(context).width * 0.6,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
+              ? isWeb
+                  ? Container()
+                  : Container(
+                      color: FlutterFlowTheme.of(context).roxoEscuro,
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/LOGO_INDIQAI_ICON.png',
+                          width: MediaQuery.sizeOf(context).width * 0.4,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )
               : page;
 
           final transitionInfo = state.transitionInfo;

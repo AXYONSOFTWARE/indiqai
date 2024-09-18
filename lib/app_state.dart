@@ -43,4 +43,22 @@ class FFAppState extends ChangeNotifier {
   set hasCuppon(bool value) {
     _hasCuppon = value;
   }
+
+  bool _IsProductContainsInRow = false;
+  bool get IsProductContainsInRow => _IsProductContainsInRow;
+  set IsProductContainsInRow(bool value) {
+    _IsProductContainsInRow = value;
+  }
+
+  int _attempts = 0;
+  int get attempts => _attempts;
+  set attempts(int value) {
+    _attempts = value;
+  }
+
+  String _qrCodeResult = '';
+  String get qrCodeResult => _qrCodeResult;
+  set qrCodeResult(String value) {
+    _qrCodeResult = value;
+  }
 }

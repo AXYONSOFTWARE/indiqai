@@ -41,6 +41,8 @@ abstract class FlutterFlowTheme {
   late Color error;
   late Color info;
 
+  late Color roxoEscuro;
+
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
   @Deprecated('Use displaySmall instead')
@@ -127,10 +129,10 @@ class LightModeTheme extends FlutterFlowTheme {
   @Deprecated('Use tertiary instead')
   Color get tertiaryColor => tertiary;
 
-  late Color primary = const Color(0xFFFFA800);
-  late Color secondary = const Color(0xFF313E90);
-  late Color tertiary = const Color(0xFFEE8B60);
-  late Color alternate = const Color(0xFFE0E3E7);
+  late Color primary = const Color(0xFF7541EE);
+  late Color secondary = const Color(0xFFF4B512);
+  late Color tertiary = const Color(0xFFFB517A);
+  late Color alternate = const Color(0xFFF6F5F5);
   late Color primaryText = const Color(0xFF14181B);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFFFFFFF);
@@ -143,6 +145,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color warning = const Color(0xFFF9CF58);
   late Color error = const Color(0xFFFF5963);
   late Color info = const Color(0xFFFFFFFF);
+
+  late Color roxoEscuro = const Color(0xFF140538);
 }
 
 abstract class Typography {
@@ -183,107 +187,107 @@ class MobileTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Montserrat';
+  String get displayLargeFamily => 'Nunito';
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Montserrat';
+  String get displayMediumFamily => 'Nunito';
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Montserrat';
+  String get displaySmallFamily => 'Nunito';
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Montserrat';
+  String get headlineLargeFamily => 'Nunito';
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Montserrat';
+  String get headlineMediumFamily => 'Nunito';
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Montserrat';
+  String get headlineSmallFamily => 'Nunito';
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Montserrat';
+  String get titleLargeFamily => 'Nunito';
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Montserrat';
+  String get titleMediumFamily => 'Nunito';
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Montserrat';
+  String get titleSmallFamily => 'Nunito';
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Montserrat';
+  String get labelLargeFamily => 'Nunito';
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Montserrat';
+  String get labelMediumFamily => 'Nunito';
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Montserrat';
+  String get labelSmallFamily => 'Nunito';
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Montserrat';
+  String get bodyLargeFamily => 'Nunito';
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Montserrat';
+  String get bodyMediumFamily => 'Nunito';
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Montserrat';
+  String get bodySmallFamily => 'Nunito';
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
@@ -295,107 +299,107 @@ class TabletTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Montserrat';
+  String get displayLargeFamily => 'Nunito';
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Montserrat';
+  String get displayMediumFamily => 'Nunito';
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Montserrat';
+  String get displaySmallFamily => 'Nunito';
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Montserrat';
+  String get headlineLargeFamily => 'Nunito';
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Montserrat';
+  String get headlineMediumFamily => 'Nunito';
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Montserrat';
+  String get headlineSmallFamily => 'Nunito';
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Montserrat';
+  String get titleLargeFamily => 'Nunito';
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Montserrat';
+  String get titleMediumFamily => 'Nunito';
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Montserrat';
+  String get titleSmallFamily => 'Nunito';
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Montserrat';
+  String get labelLargeFamily => 'Nunito';
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Montserrat';
+  String get labelMediumFamily => 'Nunito';
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Montserrat';
+  String get labelSmallFamily => 'Nunito';
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Montserrat';
+  String get bodyLargeFamily => 'Nunito';
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Montserrat';
+  String get bodyMediumFamily => 'Nunito';
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Montserrat';
+  String get bodySmallFamily => 'Nunito';
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
@@ -407,107 +411,107 @@ class DesktopTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Montserrat';
+  String get displayLargeFamily => 'Nunito';
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Montserrat';
+  String get displayMediumFamily => 'Nunito';
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Montserrat';
+  String get displaySmallFamily => 'Nunito';
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Montserrat';
+  String get headlineLargeFamily => 'Nunito';
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Montserrat';
+  String get headlineMediumFamily => 'Nunito';
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
-  String get headlineSmallFamily => 'Montserrat';
+  String get headlineSmallFamily => 'Nunito';
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Montserrat';
+  String get titleLargeFamily => 'Nunito';
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );
-  String get titleMediumFamily => 'Montserrat';
+  String get titleMediumFamily => 'Nunito';
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.normal,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Montserrat';
+  String get titleSmallFamily => 'Nunito';
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.info,
         fontWeight: FontWeight.w500,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Montserrat';
+  String get labelLargeFamily => 'Nunito';
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Montserrat';
+  String get labelMediumFamily => 'Nunito';
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Montserrat';
+  String get labelSmallFamily => 'Nunito';
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Montserrat';
+  String get bodyLargeFamily => 'Nunito';
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Montserrat';
+  String get bodyMediumFamily => 'Nunito';
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Montserrat';
+  String get bodySmallFamily => 'Nunito';
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Montserrat',
+        'Nunito',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,

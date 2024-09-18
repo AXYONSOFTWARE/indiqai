@@ -50,7 +50,7 @@
         <string>indiqai.com</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>indiqai</string>
+        <string>http</string>
         </array>
         </dict>
     </array>

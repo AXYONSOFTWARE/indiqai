@@ -43,4 +43,24 @@ class ProductsRow extends SupabaseDataRow {
 
   String? get blurHash => getField<String>('blur_hash');
   set blurHash(String? value) => setField<String>('blur_hash', value);
+
+  String? get productIcon => getField<String>('product_icon');
+  set productIcon(String? value) => setField<String>('product_icon', value);
+
+  int? get clientId => getField<int>('client_id');
+  set clientId(int? value) => setField<int>('client_id', value);
+
+  double? get probability => getField<double>('probability');
+  set probability(double? value) => setField<double>('probability', value);
+
+  String? get blurhashIcon => getField<String>('blurhash_icon');
+  set blurhashIcon(String? value) => setField<String>('blurhash_icon', value);
+
+  String? get regrasUsoCupom => getField<String>('regras_uso_cupom');
+  set regrasUsoCupom(String? value) =>
+      setField<String>('regras_uso_cupom', value);
+
+  int? get pontosEquivalentes => getField<int>('pontos_equivalentes');
+  set pontosEquivalentes(int? value) =>
+      setField<int>('pontos_equivalentes', value);
 }

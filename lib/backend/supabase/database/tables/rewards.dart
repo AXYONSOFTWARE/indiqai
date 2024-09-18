@@ -55,4 +55,23 @@ class RewardsRow extends SupabaseDataRow {
 
   String? get blurHash => getField<String>('blur_hash');
   set blurHash(String? value) => setField<String>('blur_hash', value);
+
+  String? get productUid => getField<String>('product_uid');
+  set productUid(String? value) => setField<String>('product_uid', value);
+
+  String? get nomeEmpresa => getField<String>('nome_empresa');
+  set nomeEmpresa(String? value) => setField<String>('nome_empresa', value);
+
+  int? get points => getField<int>('points');
+  set points(int? value) => setField<int>('points', value);
+
+  String? get regrasUsoCupom => getField<String>('regras_uso_cupom');
+  set regrasUsoCupom(String? value) =>
+      setField<String>('regras_uso_cupom', value);
+
+  bool? get cupomUsado => getField<bool>('cupomUsado');
+  set cupomUsado(bool? value) => setField<bool>('cupomUsado', value);
+
+  int? get qrcodeId => getField<int>('qrcode_id');
+  set qrcodeId(int? value) => setField<int>('qrcode_id', value);
 }

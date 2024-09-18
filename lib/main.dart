@@ -10,6 +10,7 @@ import 'auth/supabase_auth/auth_util.dart';
 import '/backend/supabase/supabase.dart';
 import 'backend/firebase/firebase_config.dart';
 import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/internationalization.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
   ThemeMode _themeMode = ThemeMode.system;
 
   late AppStateNotifier _appStateNotifier;
@@ -59,25 +62,33 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      const Duration(milliseconds: 5000),
+      Duration(milliseconds: isWeb ? 0 : 1500),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setLocale(String language) {
+    safeSetState(() => _locale = createLocale(language));
+  }
+
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
       });
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'IndiqAI',
+      title: 'Indiq.AI',
       localizationsDelegates: const [
+        FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('en', '')],
+      locale: _locale,
+      supportedLocales: const [
+        Locale('pt'),
+      ],
       theme: ThemeData(
         brightness: Brightness.light,
         scrollbarTheme: ScrollbarThemeData(
@@ -85,15 +96,14 @@ class _MyAppState extends State<MyApp> {
           radius: const Radius.circular(12.0),
           thumbColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.dragged)) {
-              return const Color(0xffffffff);
+              return const Color(0xff7541ee);
             }
             if (states.contains(WidgetState.hovered)) {
-              return const Color(0xffffffff);
+              return const Color(0xff7541ee);
             }
-            return const Color(0xffffffff);
+            return const Color(0xff7541ee);
           }),
         ),
-        useMaterial3: false,
       ),
       themeMode: _themeMode,
       routerConfig: _router,
